@@ -21,51 +21,71 @@ loop:
     b loop
 
 /*CCM_CCGR1 时钟使能寄存器地址，默认时钟全部开启*/
-#define gpio1_clock_enible_ccm_ccgr1  0x20C406C
-
+#define gpio1_clock_enible_ccm_ccgr1 0x20C406C
+#define gpio4_clock_enible_ccm_ccgr3 0x20C4074
 
 /*IOMUXC_SW_MUX_CTL_PAD_GPIO1_IO04 寄存器地址，用于设置GPIO1_iIO04的复用功能*/
-#define gpio1_io04_mux_ctl_register  0x20E006C
+#define gpio1_io04_mux_ctl_register 0x20E006C
+#define CSI_VSYNC_MUX_CTRL_REGISTER 0x20E01DC
 /*IOMUXC_SW_PAD_CTL_PAD_GPIO1_IO04寄存器地址，用于设置GPIO的PAD属性*/
-#define gpio1_io04_pad_ctl_register  0x20E02F8
+#define gpio1_io04_pad_ctl_register 0x20E02F8
+#define CSI_VSYNC_PAD_CTRL_REGISTER 0x20E0468
 
 
 /*GPIO1_GDIR寄存器，用于设置GPIO为输入或者输出*/
-#define  gpio1_gdir_register  0x0209C004
+#define  gpio1_gdir_register 0x0209C004
+#define  GPIO4_DIR_REGISTER 0x020A8004
 /*GPIO1_DR寄存器，用于设置GPIO输出的电平状态*/
 #define  gpio1_dr_register  0x0209C000
-
-
+#define  GPIO4_DR_REGISTER 0x020A8000
 
 
 light_led:
 
     /*开启GPIO1的时钟*/
-    ldr r0, =gpio1_clock_enible_ccm_ccgr1
-	ldr r1, =0xFFFFFFFF
-	str r1, [r0]
-
+    @ ldr r0, =gpio1_clock_enible_ccm_ccgr1
+    @ ldr r1, =0xFFFFFFFF
+    @ str r1, [r0]
+    /*开启GPIO4的时钟*/
+    ldr r0, =gpio4_clock_enible_ccm_ccgr3
+    ldr r1, =0xFFFFFFFF
+    str r1, [r0]
 
     /*将PAD引脚复用为GPIO*/
-	ldr r0, =gpio1_io04_mux_ctl_register
-	ldr r1, =0x5
-	str r1, [r0]
+    ldr r0, =gpio1_io04_mux_ctl_register
+    ldr r1, =0x5
+    str r1, [r0]
+    /*将PAD引脚复用为GPIO*/
+    ldr r0, =CSI_VSYNC_MUX_CTRL_REGISTER
+    ldr r1, =0x5
+    str r1, [r0]
 
     /*设置GPIO PAD属性*/
-	ldr r0, =gpio1_io04_pad_ctl_register
-	ldr r1, =0x1F838
-	str r1, [r0]
+    ldr r0, =gpio1_io04_pad_ctl_register
+    ldr r1, =0x1F838
+    str r1, [r0]
 
+    ldr r0, =CSI_VSYNC_PAD_CTRL_REGISTER
+    ldr r1, =0x1F838
+    str r1, [r0]
 
     /*将GPIO_GDIR.[4] 设置为1， gpio1_io04设置为输出模式*/
-	ldr r0, =gpio1_gdir_register
-	ldr r1, =0x10
-	str r1, [r0]
-	
+    ldr r0, =gpio1_gdir_register
+    ldr r1, =0x10
+    str r1, [r0]
+    /*将GPIO_GDIR.[19] 设置为1， gpio4_io19设置为输出模式*/
+    ldr r0, =GPIO4_DIR_REGISTER
+    ldr r1, =0x80000
+    str r1, [r0]
 
     /*将GPIO_DR 设置为0， gpio1全部输出为低电平*/
-	ldr r0, =gpio1_dr_register
-	ldr r1, =0x0
-	str r1, [r0]
+    ldr r0, =gpio1_dr_register
+    ldr r1, =0x10
+    str r1, [r0]
+    /*将GPIO_DR 设置为0， gpio1全部输出为低电平*/
+    ldr r0, =GPIO4_DR_REGISTER
+    ldr r1, =0x0
+    str r1, [r0]
+
     /*跳出light_led函数，返回跳转位置*/
-	mov pc, lr
+    mov pc, lr
