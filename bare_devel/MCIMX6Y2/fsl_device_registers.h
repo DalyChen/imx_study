@@ -31,6 +31,7 @@
 #ifndef __FSL_DEVICE_REGISTERS_H__
 #define __FSL_DEVICE_REGISTERS_H__
 
+#define CPU_MCIMX6Y2CVM08
 /*
  * Include the cpu specific register header files.
  *
