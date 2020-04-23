@@ -1,5 +1,6 @@
-VPATH=start
-INC = -I ../MCIMX6Y2 -I ../MCIMX6Y2/CORTEXA/Include -I ../MCIMX6Y2/CMSIS/Include
+VPATH = start
+INC = -I ../MCIMX6Y2 -I ../MCIMX6Y2/CORTEXA/Include -I ../MCIMX6Y2/CMSIS/Include\
+	-I ../MCIMX6Y2/drivers
 
 all: start.o led.o
 	arm-none-eabi-ld -Tled.lds  $^ -o led.elf
