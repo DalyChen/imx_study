@@ -1,0 +1,8 @@
+*.bin
+*.o
+*.elf
+!download_tool/dcd.bin
+!download_tool/dcdgen.bin
+!download_tool/imgutil.bin
+*.img
+*.dis
