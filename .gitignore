@@ -6,3 +6,4 @@
 !download_tool/imgutil.bin
 *.img
 *.dis
+*.imx
