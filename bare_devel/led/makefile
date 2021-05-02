@@ -5,6 +5,7 @@ CC 				:= $(CROSS_COMPILE)gcc
 LD				:= $(CROSS_COMPILE)ld
 OBJCOPY 		:= $(CROSS_COMPILE)objcopy
 OBJDUMP 		:= $(CROSS_COMPILE)objdump
+LIBPATH			:=-lgcc -L/usr/local/arm/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf/lib/gcc/arm-linux-gnueabihf/4.9.4
 
 INCDIRS 		:= ../MCIMX6Y2 \
 				   ../MCIMX6Y2/CMSIS/Include ../MCIMX6Y2/CORTEXA/Include \
@@ -13,7 +14,8 @@ INCDIRS 		:= ../MCIMX6Y2 \
 
 SRCDIRS			:= ./ \
 				   ../MCIMX6Y2 \
-				   ../MCIMX6Y2/drivers
+				   ../MCIMX6Y2/drivers \
+				   ../MCIMX6Y2/utilities
 
 INCLUDE			:= $(patsubst %, -I %, $(INCDIRS))
 
@@ -33,7 +35,7 @@ VPATH			:= $(SRCDIRS)
 
 	
 $(TARGET).bin : $(OBJS)
-	$(LD) -Timx6ul.lds -o $(TARGET).elf $^
+	$(LD) -Timx6ul.lds -o $(TARGET).elf $^ ${LIBPATH}
 	$(OBJCOPY) -O binary -S $(TARGET).elf $@
 	$(OBJDUMP) -D -m arm $(TARGET).elf > $(TARGET).dis
 
