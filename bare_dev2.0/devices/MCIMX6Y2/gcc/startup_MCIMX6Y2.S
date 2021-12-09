@@ -202,8 +202,8 @@ Reset_Handler:
     ldr   r0,=__START
     blx   r0
 #else
-    ldr   r0,=__libc_init_array
-    blx   r0
+    @ ldr   r0,=__libc_init_array
+    @ blx   r0
     ldr   r0,=main
     bx    r0
 #endif

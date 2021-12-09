@@ -1,32 +1,30 @@
 {
     "env": {
-        "BARE_MCIMX6Y2": "bare_devel/MCIMX6Y2"
-        
+        "BARE_2": "bare_dev2.0",
+        "BARE_MCIMX6Y2": "bare_dev2.0/devices/MCIMX6Y2"        
     },
     "configurations": [
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/bare_devel/led",
+                "${BARE_2}/",
+                "${BARE_2}/CMSIS/Include",
+                "${BARE_2}/CORTEXA/Include",
                 "${BARE_MCIMX6Y2}/",
-                "${BARE_MCIMX6Y2}/CMSIS/Include",
-                "${BARE_MCIMX6Y2}/CORTEXA/Include",
-                "${BARE_MCIMX6Y2}/drivers",
                 "${workspaceFolder}/"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "${workspaceFolder}/bare_devel/led",
+                    "${BARE_2}/",
+                    "${BARE_2}/CMSIS/Include",
+                    "${BARE_2}/CORTEXA/Include",
                     "${BARE_MCIMX6Y2}/",
-                    "${BARE_MCIMX6Y2}/CMSIS/Include",
-                    "${BARE_MCIMX6Y2}/CORTEXA/Include",
-                    "${BARE_MCIMX6Y2}/drivers",
                     "${workspaceFolder}/"
                 ]
             },
-            "defines": [  ],
-            "compilerPath": "/usr/bin/gcc",
+            "defines": [ "CPU_MCIMX6Y2CVM08" ],
+            "compilerPath": "/home/zhwchen/bin/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc",
             "cStandard": "gnu11",
             "cppStandard": "c++17",
             "intelliSenseMode": "gcc-x64"
